@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cpu-pod-example
+spec:
+  containers:
+  - name: gpu-container
+    image: gitlab-registry.nautilus.optiputer.net/prp/jupyterlab:latest
+    command: ["sleep", "infinity"]
+    resources:
+      limits:
