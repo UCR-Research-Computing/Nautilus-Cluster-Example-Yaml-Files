@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: paralleltest
+spec:
+  parallelism: 12
+  template:
+    spec:
+      containers:
+      - name: iteration
+        image: gitlab-registry.nautilus.optiputer.net/prp/jupyterlab:latest
+        command:
+        - sh 
+        - -c 
+        - "perl -Mbignum=bpi -wle 'print bpi(9000)'"
+        resources:
+          limits:
+            memory: 4Gi
+            cpu: "4"
+          requests:
+            memory: 4Gi
+            cpu: "1"
+      restartPolicy: OnFailure

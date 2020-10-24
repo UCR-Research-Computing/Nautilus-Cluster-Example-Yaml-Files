@@ -1,0 +1,40 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: blast
+spec:
+  template:
+    spec:
+      containers:
+      - name: blast
+        image: gitlab-registry.nautilus.optiputer.net/prp/jupyterlab
+        command:
+        - sh
+        - -c
+        - "/opt/repo/blast/install.sh && cat blastout.txt"
+        volumeMounts:
+        - name: git-repo
+          mountPath: /opt/repo
+        resources:
+          limits:
+            memory: 4Gi
+            cpu: "1"
+          requests:
+            memory: 4Gi
+            cpu: "1"
+      initContainers:
+      - name: init-clone-repo
+        image: alpine/git
+        args:
+          - clone
+          - --single-branch
+          - https://github.com/charles-forsyth/nbt.git
+          - /opt/repo/blast
+        volumeMounts:
+          - name: git-repo
+            mountPath: /opt/repo
+      volumes:
+      - name: git-repo
+        emptyDir: {}
+      restartPolicy: Never
+  backoffLimit: 5

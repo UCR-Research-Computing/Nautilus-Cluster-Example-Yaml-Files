@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: centos
+spec:
+  containers:
+  - name: centos-container
+    image: centos:latest
+    command: ["sleep", "infinity"]
+    resources:
+      limits:
