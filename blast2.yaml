@@ -11,7 +11,7 @@ spec:
         command:
         - sh
         - -c
-        - "/opt/repo/blast/install.sh && cat blastout.txt"
+        - "/opt/repo/blast/blast/install.sh && /opt/repo/blast/blast/blast.sh && cat blastout.txt"
         volumeMounts:
         - name: git-repo
           mountPath: /opt/repo
