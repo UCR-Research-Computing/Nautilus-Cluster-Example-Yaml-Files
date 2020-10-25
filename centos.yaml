@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: centos
+  name: centos2
 spec:
   containers:
   - name: centos-container
@@ -9,3 +9,11 @@ spec:
     command: ["sleep", "infinity"]
     resources:
       limits:
+    volumeMounts:
+    - mountPath: /sharedvol
+      name: sharedvol
+  volumes:
+    - name: sharedvol
+      persistentVolumeClaim:
+        claimName: master-vol
+

@@ -17,10 +17,10 @@ spec:
           mountPath: /opt/repo
         resources:
           limits:
-            memory: 2Gi
+            memory: 4Gi
             cpu: "4"
           requests:
-            memory: 2Gi
+            memory: 4Gi
             cpu: "4"
       initContainers:
       - name: init-clone-repo
