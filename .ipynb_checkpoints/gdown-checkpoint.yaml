@@ -1,0 +1,39 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: gdown-test
+spec:
+  template:
+    spec:
+      containers:
+      - name: demo
+        image: gitlab-registry.nautilus.optiputer.net/prp/jupyterlab
+        command:
+        - sh
+        - -c
+        - "ls -latr /opt/repo"
+        volumeMounts:
+        - name: git-repo
+          mountPath: /opt/repo
+        resources:
+          limits:
+            memory: 1Gi
+            cpu: "1"
+          requests:
+            memory: 1Gi
+            cpu: "1"
+      initContainers:
+      - name: centos-container
+        image: centos:latest
+        command:
+        - sh
+        - -c
+        - "yum install -y epel-release && yum install -y unzip && yum -y install python3 && yum -y install python3-pip && pip3 install gdown && gdown --id 1_c230VieN3ObcnyuVMvpdY7FvB5-oEtL -O /opt/repo/sc19-tut.zip && cd /opt/repo/ && unzip sc19-tut.zip"
+        volumeMounts:
+          - name: git-repo
+            mountPath: /opt/repo
+      volumes:
+      - name: git-repo
+        emptyDir: {}
+      restartPolicy: Never
+  backoffLimit: 5
