@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: centos
+  name: centos2
 spec:
   containers:
-  - name: centos-container
+  - name: centos2-container
     image: centos:latest
     command: ["sleep", "infinity"]
     resources:

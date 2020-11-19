@@ -1,7 +1,7 @@
 #!/bin/sh
 
 namedefault="test"
-imagedefault="centos:latest"
+imagedefault="gitlab-registry.nautilus.optiputer.net/prp/jupyterlab:latest"
 cmddefault="bash"
 
 name=${1:-$namedefault}
@@ -34,10 +34,10 @@ spec:
           name: sharedvol
         resources:
           limits:
-            memory: 4Gi
+            memory: 6Gi
             cpu: "4"
           requests:
-            memory: 1Gi
+            memory: 2Gi
             cpu: "1"
       volumes:
       - name: sharedvol

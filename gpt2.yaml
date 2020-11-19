@@ -1,0 +1,41 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: gpt2
+spec:
+  template:
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: gpu-type
+                operator: In
+                values:
+                - RTX8000
+      containers:
+      - name: blast
+        image: $image
+        command: ["sleep", "infinity"]
+        volumeMounts:
+        - mountPath: /sharedvol
+          name: sharedvol
+        resources:
+          limits:
+            memory: 36Gi
+            cpu: "4"
+            nvidia.com/gpu: 1
+          requests:
+            memory: 32Gi
+            cpu: "1"
+            nvidia.com/gpu: 1
+      volumes:
+      - name: sharedvol
+        persistentVolumeClaim:
+          claimName: master-vol
+      - name: git-repo
+        emptyDir: {}
+      restartPolicy: Never
+  backoffLimit: 1
+
