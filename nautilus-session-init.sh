@@ -1,6 +1,6 @@
 #!/bin/sh
 
-namedefault="test"
+namedefault="nautilus-session-temp"
 imagedefault="gitlab-registry.nautilus.optiputer.net/prp/jupyterlab:latest"
 cmddefault="bash"
 

@@ -1,23 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: master-node
+  name: ursa
   labels:
-    app: centos
+    app: ursa
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: centos
+      app: ursa
   template:
     metadata:
       labels:
-        app: centos
+        app: ursa
     spec:
       containers:
-      - name: centos
-        image: centos:latest
-        command: ["sleep", "100000000"]
+      - name: ursa
+        image: ubuntu:latest
+        command: ["sleep", "infinity"]
+        ports:
+        - containerPort: 22
         resources:
           limits:
             cpu: "1"
@@ -32,4 +34,29 @@ spec:
         - name: sharedvol
           persistentVolumeClaim:
             claimName: master-vol
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ursa-connect
+  labels:
+    run: ursa-connect
+spec:
+  ports:
+  - port: 22
+  selector:
+    run: ursa-connect
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: ursa-scaler
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: ursa
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
 

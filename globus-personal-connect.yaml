@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ursa-data-connect
+  labels:
+    app: ursa-data-connect
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ursa-data-connect
+  template:
+    metadata:
+      labels:
+        app: ursa-data-connect
+    spec:
+      containers:
+      - name: ursa-data-connect
+        image: ubuntu:latest
+        command: ["sleep", "infinity"]
+        resources:
+          limits:
+            cpu: "4"
+            memory: 10Gi
+          requests:
+            cpu: "500m"
+            memory: 500Mi
+        volumeMounts:
+        - mountPath: /sharedvol
+          name: sharedvol
+      volumes:
+        - name: sharedvol
+          persistentVolumeClaim:
+            claimName: master-vol
+
