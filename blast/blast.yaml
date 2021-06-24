@@ -1,4 +1,4 @@
-apiVersion: batch/v1
+aiVersion: batch/v1
 kind: Job
 metadata:
   name: blast
@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
       - name: blast
-        image: gitlab-registry.nautilus.optiputer.net/prp/jupyterlab
+        image: gitlab-registry.nrp-nautilus.io/prp/jupyter-stack/prp:latest
         command:
         - sh
         - -c

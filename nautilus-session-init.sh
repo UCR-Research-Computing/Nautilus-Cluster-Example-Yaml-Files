@@ -1,7 +1,7 @@
 #!/bin/sh
 
 namedefault="nautilus-session-temp"
-imagedefault="gitlab-registry.nautilus.optiputer.net/prp/jupyterlab:latest"
+imagedefault="gitlab-registry.nrp-nautilus.io/prp/jupyter-stack/prp:latest"
 cmddefault="bash"
 
 name=${1:-$namedefault}
