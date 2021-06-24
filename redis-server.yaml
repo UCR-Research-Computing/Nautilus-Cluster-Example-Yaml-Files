@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: redis-server
+  labels:
+    jobtype: redis-server
+spec:
+  template:
+    spec:
+      containers:
+      - name: redis-server
+        image: redis
+        command: ["redis-server"]
+        volumeMounts:
+        - mountPath: /data
+          name: data
+        resources:
+          limits:
+            memory: 1Gi
+            cpu: "1"
+          requests:
+            memory: 100m
+            cpu: "100m"
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: master-vol
+      restartPolicy: OnFailure
+  backoffLimit: 1
+

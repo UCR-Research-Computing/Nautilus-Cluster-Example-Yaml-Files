@@ -8,7 +8,7 @@ spec:
     spec:
       containers:
       - name: iteration
-        image: gitlab-registry.nautilus.optiputer.net/prp/jupyterlab:latest
+        image: gitlab-registry.nrp-nautilus.io/prp/jupyter-stack/prp:latest
         command:
         - sh 
         - -c 
