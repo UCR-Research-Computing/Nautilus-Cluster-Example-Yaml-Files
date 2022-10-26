@@ -1,4 +1,4 @@
-# using-nautilus-cluster
+# Example yaml files to help use the Nautilus Cluster.
 
 
 ### basic commmands
